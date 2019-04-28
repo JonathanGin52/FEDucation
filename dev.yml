@@ -1,0 +1,40 @@
+name: feducation
+
+type: rails
+
+up:
+  - homebrew:
+    - openssl
+    - shopify/shopify/mysql-client:
+        or:        [mysql]
+        conflicts: [mysql-connector-c]
+    # - another_package
+  - ruby: 2.5.3
+  - bundler
+  - railgun
+  - database:
+      bootstrap: bin/rails db:create db:migrate db:schema:load
+      migrate: bin/rails db:migrate db:test:prepare
+      host: feducation.railgun
+      user: root
+      password: ''
+      database: feducation_development
+
+server:
+  port: 29930
+
+commands:
+  console: bin/rails console
+  test:
+    syntax:
+      argument: file
+      optional: args...
+    run:    bin/rails test
+
+# These use fuzzy-matching, so you can (e.g.) `dev open app`
+open:
+  "My Application": https://feducation.myshopify.io
+  #ops:
+    # - https://datadog.link
+    # - https://bugsnag.link
+    # - https://kafka.link
