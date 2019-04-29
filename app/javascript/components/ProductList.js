@@ -63,7 +63,12 @@ export default class ProductList extends React.Component {
     return (
       <AppProvider>
         <ApolloProvider client={CLIENT}>
-          <Page title="Products">
+          <Page
+            title="Products"
+            secondaryActions={[
+              {content: 'Add product', url: '/products/new'},
+            ]}
+          >
             <Query query={allProducts}>
               {
                 ({loading, data}) => {
