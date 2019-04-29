@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
   end
   post "/graphql", to: "graphql#execute"
-  root to: "products#index"
-  resources :products
+
+  root "index#index"
+  get "*path", to: "index#index"
 end
