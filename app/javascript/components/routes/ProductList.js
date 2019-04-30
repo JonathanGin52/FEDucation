@@ -27,6 +27,7 @@ const renderResourceListItem = (product) => {
   return (
     <ResourceList.Item
       id={id}
+      url={`/products/${id}`}
     >
       <h3>
         <TextStyle variation="strong">{name}</TextStyle>

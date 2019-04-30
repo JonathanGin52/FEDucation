@@ -1,11 +1,12 @@
 import React from 'react';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
 import ApolloClient from 'apollo-boost';
 import {ApolloProvider} from 'react-apollo';
 import {AppProvider} from '@shopify/polaris';
 
 import ProductList from './routes/ProductList';
 import ProductForm from './routes/ProductForm';
+import ProductDetails from './routes/ProductDetails';
 import NotFound from './routes/NotFound';
 
 const CLIENT = new ApolloClient({
@@ -20,19 +21,28 @@ const CLIENT = new ApolloClient({
   },
 });
 
+const CustomLinkComponent = ({children, url, ...rest}) => {
+  return (
+    <Link to={url} {...rest}>
+      {children}
+    </Link>
+  );
+};
+
 const App = () => {
   return (
-    <ApolloProvider client={CLIENT}>
-      <AppProvider>
+    <AppProvider linkComponent={CustomLinkComponent}>
+      <ApolloProvider client={CLIENT}>
         <Router>
           <Switch>
             <Route exact path="/" component={ProductList} />
             <Route exact path="/products/new" component={ProductForm} />
+            <Route path="/products/:id" component={ProductDetails} />
             <Route component={NotFound} />
           </Switch>
         </Router>
-      </AppProvider>
-    </ApolloProvider>
+      </ApolloProvider>
+    </AppProvider>
   );
 };
 
