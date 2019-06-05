@@ -1,5 +1,4 @@
 import React from 'react';
-import {gql} from 'apollo-boost';
 import {Query} from 'react-apollo';
 import {
   Card,
@@ -11,16 +10,7 @@ import {
   TextStyle,
 } from '@shopify/polaris';
 
-const allProducts = gql`
-  {
-    allProducts {
-      id
-      name
-      description
-      price
-    }
-  }
-`;
+import allProducts from '../queries/getProducts';
 
 const renderResourceListItem = (product) => {
   const {id, name, description, price} = product;

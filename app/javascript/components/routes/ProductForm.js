@@ -1,20 +1,8 @@
 import React from 'react';
-import {gql} from 'apollo-boost';
 import {Mutation} from 'react-apollo';
-import TextInput from './TextInput';
 
-const ADD_PRODUCT = gql`
-  mutation createProduct($name: String!, $description: String, $price: Float!) {
-    createProduct(name: $name, description: $description, price: $price) {
-      product {
-        id
-        name
-        description
-        price
-      }
-    }
-  }
-`;
+import createProduct from '../mutations/createProduct';
+import TextInput from './TextInput';
 
 class ProductForm extends React.Component {
   state = {
@@ -43,13 +31,14 @@ class ProductForm extends React.Component {
     const {name, description, price} = this.state;
 
     return (
-      <Mutation mutation={ADD_PRODUCT}>
+      <Mutation mutation={createProduct}>
         {(addProduct) => {
           return (
-            <form onSubmit={(evt) => {
-              evt.preventDefault();
-              this.handleSubmit(addProduct);
-            }}
+            <form
+              onSubmit={(evt) => {
+                evt.preventDefault();
+                this.handleSubmit(addProduct);
+              }}
             >
               <TextInput
                 name="name"

@@ -1,5 +1,4 @@
 import React from 'react';
-import {gql} from 'apollo-boost';
 import {Query, Mutation} from 'react-apollo';
 import {
   Card,
@@ -10,31 +9,9 @@ import {
   TextContainer,
 } from '@shopify/polaris';
 
+import deleteProductMutation from '../mutations/deleteProduct';
+import getProduct from '../queries/getProduct';
 import NotFound from './NotFound';
-
-const getProduct = gql`
-  query Product($id: ID!) {
-    product(id: $id) {
-      id
-      name
-      description
-      price
-    }
-  }
-`;
-
-const deleteProductMutation = gql`
-  mutation deleteProduct($id: ID!) {
-    deleteProduct(id: $id) {
-      product {
-        id
-        name
-        description
-        price
-      }
-    }
-  }
-`;
 
 class ProductDetails extends React.Component {
   constructor(props) {
